@@ -40,6 +40,8 @@ gem 'image_processing'
 gem 'mini_magick'
 gem 'fastimage' # for store_dimensions plugin
 
+gem 'geocoder'
+
 gem 'bootstrap', '~> 4.0.0.beta'
 
 group :development, :test do

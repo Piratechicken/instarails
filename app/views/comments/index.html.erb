@@ -1,14 +1,12 @@
-<p id="notice"><%= notice %></p>
 
 <nav class="navbar">
 <h1>Comments</h1>
-<%= link_to 'Back', @photo %>
+<div><%= link_to 'Back to photo', @photo %></div>
+<%= link_to 'Home', root_path %>
 </nav>
+<p id="notice"><%= notice %></p>
 
-<section>
+<section class="comments">
   <%= render @comments, photo: @photo %>
+  <%= render 'form', comment: @new_comment %>
 </section>
-
-<br>
-
-<%= render 'form', comment: @new_comment %>

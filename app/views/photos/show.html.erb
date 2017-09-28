@@ -1,9 +1,10 @@
 <nav class="navbar">
-<% if current_user == @photo.user %>
-  <%= link_to 'Edit', edit_photo_path(@photo) %>
-  <%= link_to 'Delete', @photo, method: :delete, data: { confirm: 'Are you sure?' } %>
-<% end %>
-<%= link_to 'Back', photos_path %>
+  <% if current_user == @photo.user %>
+    <%= link_to 'Edit', edit_photo_path(@photo) %>
+    <%= link_to 'Delete', @photo, method: :delete, data: { confirm: 'Are you sure?' } %>
+  <% end %>
+  <%= link_to 'Back', photos_path %>
+  <%= link_to 'Home', root_path %>
 </nav>
 
 <p id="notice"><%= notice %></p>
@@ -24,4 +25,4 @@
   <%= f.button liked ? 'Unlike' : 'Like' %>
 <% end %>
 
-
+<%= link_to 'Comments', photo_comments_url(@photo) %>

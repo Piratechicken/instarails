@@ -1,6 +1,8 @@
 @import "bootstrap";
 @import "./landing";
-
+body {
+  margin: 0;
+}
 img {
   max-width: 300px;
   height: auto;
@@ -9,4 +11,14 @@ img {
 .img-fluid {
   max-width: 600px;
   height: auto;
+}
+
+.comments {
+  margin:auto;
+  width: 600px;
+}
+
+nav {
+  margin: 0 auto 2em auto;
+  background: #B4B4B4;
 }
