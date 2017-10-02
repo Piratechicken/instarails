@@ -41,3 +41,15 @@
 <% end %>
 
 
+  <% @profile.user.photos.in_groups_of(3, false).each do |group| %>
+    <div class = "row">
+      <% group.each do |photo| %>
+        <div class = "col-md-4">
+          <%= link_to (image_tag photo.image.url), photo %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+
+
+
