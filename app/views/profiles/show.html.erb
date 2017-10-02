@@ -2,8 +2,10 @@
   <h1>
     <%= @profile.username %>
   </h1>
+  <% if @profile.user == current_user %>
   <%= link_to 'Edit profile', edit_profile_path(@profile) %> |
   <%= link_to 'Edit account', edit_user_registration_path %> | 
+  <% end %>
   <%= link_to 'Home', root_path %>
 </nav>
 
@@ -31,7 +33,9 @@
   </p>
 </div>
 
-<% if @profile.user == current_user %>
+<% if !user_signed_in? %>
+ <%= link_to 'Sign up up to Instarails now!', new_user_registration_url %>
+<% elsif @profile.user == current_user %>
    <%= link_to 'Edit', edit_profile_path, class: 'btn btn-secondary btn-block' %>
 <% else %>
   <%= form_with(model: @profile.user, method: :patch) do |f| %>

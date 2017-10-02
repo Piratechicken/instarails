@@ -1,5 +1,6 @@
 class ProfilesController < ApplicationController
   before_action :set_profile, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, only: [:edit, :update, :destroy]
 
   # GET /profiles
   # GET /profiles.json
@@ -21,7 +22,11 @@ class ProfilesController < ApplicationController
 
   # GET /profiles/1/edit
   def edit
-    @profile = Profile.find_or_initialize_by(user: current_user)
+    # If not logged is show sign up page
+    #redirect_to new_user_registration_url if !user_signed_in?
+    #@profile = Profile.find_or_initialize_by(user: current_user)
+    @profile = Profile.new(user: current_user) if @profile.nil?
+    
   end
 
   # POST /profiles
@@ -48,8 +53,10 @@ class ProfilesController < ApplicationController
         @profile.user.toggle_followed_by(current_user)
         format.html { redirect_to @profile.user }
         format.json { render :show, status: :ok, location: @profile }
+      elsif @profile.user != current_user
+        redirect_to root_url
       elsif @profile.update(profile_params)
-        format.html { redirect_to @profile, notice: 'Profile was successfully updated.' }
+        format.html { redirect_to profile_path, notice: 'Profile was successfully updated.' }
         format.json { render :show, status: :ok, location: @profile }
       else
         format.html { render :edit }
@@ -77,7 +84,7 @@ class ProfilesController < ApplicationController
         @profile = Profile.find_by!(user_id: params[:id])
       else
         # Signed in user profile
-        @profile = Profile.find_by!(user: current_user)
+        @profile = Profile.find_by(user: current_user)
       end
     end
 
@@ -87,7 +94,7 @@ class ProfilesController < ApplicationController
     end
 
     def performing_follow?
-      params.require(:user)[:follow].present?
+      params.dig(:user, :follow).present?
     end
 
 end
